@@ -4,14 +4,22 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
-import androidx.compose.material.*
-import androidx.compose.runtime.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Surface
+import androidx.compose.material.Text
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.navin.composelearning.ui.theme.ComposeLearningTheme
 
 class MainActivity : ComponentActivity() {
@@ -30,61 +38,58 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun Greeting(item: Int) {
-    var myValue by remember { mutableStateOf(item) }
-    Row(
-        modifier = Modifier.fillMaxWidth().background(Color.LightGray),
-        horizontalArrangement = Arrangement.Start,
-        verticalAlignment =  Alignment.CenterVertically
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(color = Color.Yellow),
+        contentAlignment = Alignment.TopCenter
     ) {
-//        Divider(thickness = 10.dp)
-        CustomItems(3f)
-//        Divider()
-        CustomItems(1f, MaterialTheme.colors.onSecondary)
-//        Divider()
-        Button(onClick = {
-            myValue++
-        }) {
-            Text(text = "I am $myValue")
+
+        Box(
+            modifier = Modifier
+                .background(color = Color.Green)
+                .verticalScroll(rememberScrollState())
+        ) {
+            Text(
+                text = "I Love Android", fontSize = 30.sp
+            )
         }
     }
 }
+
 
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
     ComposeLearningTheme {
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.End,
-            verticalAlignment =  Alignment.CenterVertically
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(color = Color.Yellow),
+            contentAlignment = Alignment.Center
         ) {
-            CustomItems(2f)
-//            Divider()
-            CustomItems(1f, MaterialTheme.colors.onSecondary)
-//            Divider()
-//            Greeting(5)
+
+            Box(
+                modifier = Modifier
+                    .width(150.dp)
+                    .background(color = Color.Green)
+                    .verticalScroll(rememberScrollState()),
+                contentAlignment = Alignment.Center
+                ) {
+
+                Box(
+                    modifier = Modifier
+                        .width(20.dp).height(20.dp)
+                        .background(color = Color.Blue),
+                    contentAlignment = Alignment.BottomCenter
+                ) {
+
+                }
+
+                Text(
+                    text = "I Love Android", fontSize = 40.sp
+                )
+            }
         }
-
     }
-}
-
-@Composable
-fun RowScope.CustomItems(weight: Float, color: Color = MaterialTheme.colors.primary) {
-    Surface(
-        modifier = Modifier
-            .width(50.dp)
-            .height(50.dp)
-            .weight(weight),
-        color = color
-    ) { }
-}
-
-@Composable
-fun ColumnScope.CustomItem(weight: Float, color: Color = MaterialTheme.colors.primary) {
-    Surface(
-        modifier = Modifier
-            .width(50.dp)
-            .weight(weight),
-        color = color
-    ) { }
 }
