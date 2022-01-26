@@ -4,12 +4,10 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
@@ -17,6 +15,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -38,23 +44,59 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun Greeting(item: Int) {
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(color = Color.Yellow),
-        contentAlignment = Alignment.TopCenter
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
-
-        Box(
-            modifier = Modifier
-                .background(color = Color.Green)
-                .verticalScroll(rememberScrollState())
-        ) {
-            Text(
-                text = "I Love Android", fontSize = 30.sp
-            )
-        }
+        CustomText()
     }
+}
+
+@Composable
+fun CustomText() {
+    Text(
+        text = stringResource(id = R.string.app_name),
+        modifier = Modifier
+            .background(color = MaterialTheme.colors.primary)
+            .padding(16.dp)
+            .width(200.dp),
+        color = Color.White,
+        fontSize = MaterialTheme.typography.h6.fontSize,
+        fontStyle = FontStyle.Italic,
+        fontWeight = FontWeight.Bold,
+        textAlign = TextAlign.End
+    )
+}
+
+@Composable
+fun CustomText2() {
+    Text(
+        buildAnnotatedString {
+            withStyle(
+                style = SpanStyle(
+                    color = MaterialTheme.colors.primary,
+                    fontSize = 25.sp,
+                    fontWeight = FontWeight.Bold
+                )
+            ) {
+                append("A")
+            }
+            append("B")
+            append("C")
+            append("D")
+        }
+    )
+}
+
+@Composable
+fun CustomText3() {
+    Text(
+        text = "Hello World"
+            .repeat(20),
+        maxLines = 2,
+        overflow = TextOverflow.Ellipsis,
+        modifier = Modifier.padding(horizontal = 5.dp)
+    )
 }
 
 
@@ -62,34 +104,13 @@ fun Greeting(item: Int) {
 @Composable
 fun DefaultPreview() {
     ComposeLearningTheme {
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(color = Color.Yellow),
-            contentAlignment = Alignment.Center
+        Column(
+            modifier = Modifier.fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-
-            Box(
-                modifier = Modifier
-                    .width(150.dp)
-                    .background(color = Color.Green)
-                    .verticalScroll(rememberScrollState()),
-                contentAlignment = Alignment.Center
-                ) {
-
-                Box(
-                    modifier = Modifier
-                        .width(20.dp).height(20.dp)
-                        .background(color = Color.Blue),
-                    contentAlignment = Alignment.BottomCenter
-                ) {
-
-                }
-
-                Text(
-                    text = "I Love Android", fontSize = 40.sp
-                )
-            }
+            CustomText()
+            CustomText2()
+            CustomText3()
         }
     }
 }
