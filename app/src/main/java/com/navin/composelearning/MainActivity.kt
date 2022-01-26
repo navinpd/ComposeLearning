@@ -8,6 +8,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.text.selection.DisableSelection
+import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
@@ -90,13 +92,20 @@ fun CustomText2() {
 
 @Composable
 fun CustomText3() {
-    Text(
-        text = "Hello World"
-            .repeat(20),
-        maxLines = 2,
-        overflow = TextOverflow.Ellipsis,
-        modifier = Modifier.padding(horizontal = 5.dp)
-    )
+    SelectionContainer {
+        Column {
+            Text(
+                text = "Hello World"
+                    .repeat(20),
+                maxLines = 2,
+                overflow = TextOverflow.Ellipsis,
+                modifier = Modifier.padding(horizontal = 5.dp)
+            )
+            DisableSelection {
+                Text(text = "This text is disabled from Selection")
+            }
+        }
+    }
 }
 
 
