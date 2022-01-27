@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.selection.DisableSelection
 import androidx.compose.foundation.text.selection.SelectionContainer
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
@@ -31,95 +32,27 @@ import androidx.compose.ui.unit.sp
 import com.navin.composelearning.ui.theme.ComposeLearningTheme
 
 class MainActivity : ComponentActivity() {
+    @ExperimentalMaterialApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             ComposeLearningTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(color = MaterialTheme.colors.background) {
-                    Greeting(5)
+                    ExpandableCard()
                 }
             }
         }
     }
 }
 
-@Composable
-fun Greeting(item: Int) {
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        CustomText()
-    }
-}
-
-@Composable
-fun CustomText() {
-    Text(
-        text = stringResource(id = R.string.app_name),
-        modifier = Modifier
-            .background(color = MaterialTheme.colors.primary)
-            .padding(16.dp)
-            .width(200.dp),
-        color = Color.White,
-        fontSize = MaterialTheme.typography.h6.fontSize,
-        fontStyle = FontStyle.Italic,
-        fontWeight = FontWeight.Bold,
-        textAlign = TextAlign.End
-    )
-}
-
-@Composable
-fun CustomText2() {
-    Text(
-        buildAnnotatedString {
-            withStyle(
-                style = SpanStyle(
-                    color = MaterialTheme.colors.primary,
-                    fontSize = 25.sp,
-                    fontWeight = FontWeight.Bold
-                )
-            ) {
-                append("A")
-            }
-            append("B")
-            append("C")
-            append("D")
-        }
-    )
-}
-
-@Composable
-fun CustomText3() {
-    SelectionContainer {
-        Column {
-            Text(
-                text = "Hello World"
-                    .repeat(20),
-                maxLines = 2,
-                overflow = TextOverflow.Ellipsis,
-                modifier = Modifier.padding(horizontal = 5.dp)
-            )
-            DisableSelection {
-                Text(text = "This text is disabled from Selection")
-            }
-        }
-    }
-}
-
-
+@ExperimentalMaterialApi
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
     ComposeLearningTheme {
-        Column(
-            modifier = Modifier.fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            CustomText()
-            CustomText2()
-            CustomText3()
+        Surface(color = MaterialTheme.colors.background) {
+            ExpandableCard()
         }
     }
 }
