@@ -25,6 +25,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.navin.composelearning.ui.theme.ComposeLearningTheme
+import com.navin.composelearning.ui.theme.GoogleButton
 
 class MainActivity : ComponentActivity() {
     @ExperimentalMaterialApi
@@ -41,64 +42,10 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+@ExperimentalMaterialApi
 @Composable
 fun Greeting() {
-    var text by remember { mutableStateOf("Type Here...") }
-
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
-
-        OutlinedTextField(
-//        TextField(
-            value = text,
-            onValueChange = {
-                text = it
-            },
-            label = {
-                Text(text = "Title")
-            },
-            maxLines = 1,
-            leadingIcon = {
-                IconButton(onClick = {}, enabled = true) {
-                    Icon(
-                        imageVector = Icons.Filled.Email,
-                        contentDescription = "TextIcon"
-                    )
-                }
-            },
-            trailingIcon = {
-                IconButton(onClick = {
-                    Log.d("TAG", "I'm clicked")
-                }, enabled = true) {
-                    Icon(
-                        imageVector = Icons.Filled.Check,
-                        contentDescription = "TextIcon"
-                    )
-                }
-            },
-            keyboardOptions = KeyboardOptions(
-                autoCorrect = true,
-                keyboardType = KeyboardType.Email,
-                imeAction = ImeAction.Next
-            ),
-            keyboardActions = KeyboardActions(onSearch = {},
-                onNext = { Log.d("TAG", "Message") })
-        )
-        Divider()
-        var bTF by remember { mutableStateOf("Hello Change") }
-        BasicTextField(
-            modifier = Modifier
-                .background(Color.LightGray)
-                .padding(16.dp),
-            value = bTF,
-            onValueChange = {
-                bTF = it
-            }
-        )
-    }
+    GoogleButton()
 }
 
 @ExperimentalMaterialApi
