@@ -3,21 +3,16 @@ package com.navin.composelearning
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.text.KeyboardActions
-import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
-import androidx.compose.runtime.*
-import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.navin.composelearning.ui.theme.ComposeLearningTheme
 
 class MainActivity : ComponentActivity() {
@@ -28,7 +23,14 @@ class MainActivity : ComponentActivity() {
             ComposeLearningTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(color = MaterialTheme.colors.background) {
-                    Greeting()
+                    Greeting(
+                        gradient = Brush.horizontalGradient(
+                            colors = listOf(
+                                Color.Blue,
+                                Color.DarkGray
+                            )
+                        )
+                    )
                 }
             }
         }
@@ -37,34 +39,30 @@ class MainActivity : ComponentActivity() {
 
 @ExperimentalMaterialApi
 @Composable
-fun Greeting() {
+fun Greeting(
+    gradient: Brush,
+    text: String = "Button"
+) {
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        var data by remember { mutableStateOf("Data") }
-        var showPassword by rememberSaveable { mutableStateOf(false) }
-        val painter =
-            if (showPassword) R.drawable.design_ic_visibility else R.drawable.design_ic_visibility_off
-
-        OutlinedTextField(
-            value = data,
-            onValueChange = { data = it },
-            trailingIcon = {
-                IconButton(onClick = { showPassword = !showPassword }) {
-                    Icon(
-                        painter = painterResource(id = painter),
-                        contentDescription = "Hide"
-                    )
-                }
-            },
-            label = { Text(text = "Password") },
-            visualTransformation = if (showPassword)
-                VisualTransformation.None else PasswordVisualTransformation(),
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
-            keyboardActions = KeyboardActions(onNext = {})
-        )
+        Button(
+            colors = ButtonDefaults.buttonColors(backgroundColor = Color.Transparent),
+            onClick = {}, contentPadding = PaddingValues(),
+            elevation = ButtonDefaults.elevation(defaultElevation = 6.dp, pressedElevation = 12.dp)
+        ) {
+            Box(
+                modifier = Modifier.background(gradient)
+                    .padding(horizontal = 16.dp, vertical = 8.dp)
+                    .width(128.dp)
+                    .height(46.dp),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(text = text, color = Color.White)
+            }
+        }
     }
 }
 
@@ -74,7 +72,14 @@ fun Greeting() {
 fun DefaultPreview() {
     ComposeLearningTheme {
         Surface(color = MaterialTheme.colors.background) {
-            Greeting()
+            Greeting(
+                gradient = Brush.horizontalGradient(
+                    colors = listOf(
+                        Color.Red,
+                        Color.Cyan
+                    )
+                )
+            )
         }
     }
 }
